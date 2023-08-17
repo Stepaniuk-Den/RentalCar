@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 const $instance = axios.create({
   baseURL: 'https://64c21d6bfa35860baea1349e.mockapi.io/',
@@ -6,6 +6,5 @@ const $instance = axios.create({
 
 export const fetchCar = async () => {
   const { data } = await $instance.get('/adverts');
-  // console.log(data)
   return data;
-}
+};
