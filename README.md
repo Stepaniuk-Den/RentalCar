@@ -1,3 +1,5 @@
+## Rental-Car App
+
 This is an application for finding and renting cars, with convenient navigation
 and a selection of different car options.
 
