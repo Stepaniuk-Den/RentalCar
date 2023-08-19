@@ -1,9 +1,12 @@
 import { styled } from 'styled-components';
+import { GoHeart } from 'react-icons/go';
+import { GoHeartFill } from 'react-icons/go';
 
 export const StyledCard = styled.div`
   display: flex;
   flex-direction: column;
   width: 274px;
+  position: relative;
   border-radius: 14px;
   transition: all 0.3s ease-in-out;
 
@@ -35,7 +38,7 @@ export const StyledCard = styled.div`
   }
 
   &:hover .image {
-    scale: 1.1;
+    scale: 1.05;
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.2),
       0px 1px 5px 0px rgba(0, 0, 0, 0.14), 0px 2px 5px -1px rgba(0, 0, 0, 0.12);
   }
@@ -58,6 +61,13 @@ export const StyledModelData = styled.div`
   margin-top: 14px;
   display: flex;
   flex-direction: row;
+  gap: 6px;
+  & .model {
+    color: #3470ff;
+  }
+  & .rentalPrice {
+    margin-left: auto;
+  }
 `;
 
 export const StyledModelDetail = styled.div`
@@ -75,4 +85,26 @@ export const StyledModelDetail = styled.div`
     font-weight: 400;
     line-height: 18px; /* 150% */
   }
+`;
+
+export const StyledHeartWrapper = styled.div`
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  cursor: pointer;
+  &:hover {
+  }
+`;
+
+export const StyledHeartIcon = styled(GoHeart)`
+  width: 18px;
+  height: 18px;
+  color: rgba(255, 255, 255, 0.8);
+`;
+export const StyledHeartFillIcon = styled(GoHeartFill)`
+  width: 18px;
+  height: 18px;
+  color: rgba(52, 112, 255, 1);
 `;

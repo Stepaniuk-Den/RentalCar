@@ -4,10 +4,13 @@ import { selectCarData } from 'redux/selectors';
 import { getCarsThunk } from 'redux/thunk';
 import {
   StyledCard,
+  StyledHeartIcon,
+  StyledHeartWrapper,
   StyledModelData,
   StyledModelDetail,
   StyledWrapper,
 } from './Card.styled';
+import { addModalData, openModal } from 'redux/modalSlice';
 
 const Card = () => {
   const dispatch = useDispatch();
@@ -17,38 +20,48 @@ const Card = () => {
     dispatch(getCarsThunk());
   }, [dispatch]);
 
+  const handleOpenModal = evt => {
+    const carModal = carData.find(
+      car => car.id === Number(evt.currentTarget.id)
+    );
+    dispatch(openModal());
+    dispatch(addModalData(carModal));
+  };
+
+  const toFavorite = evt => {
+    const carFavorite = carData.find(
+      car => car.id === Number(evt.currentTarget.id)
+    );
+    // dispatch(toggleFavorite(carFavorite));
+  };
   return (
     <>
-      {carData.map((car, id) => {
+      {carData.map(car => {
         const address = car.address.split(',');
         return (
-          <div key={id}>
+          <div key={car.id}>
             <StyledCard>
               <StyledWrapper className="image">
                 <img src={car.img} alt={car.make} />
               </StyledWrapper>
               <StyledModelData>
-                {/* <p>
-                  {car.make} | {car.model} |{car.year} |{car.rentalPrice}
-                </p> */}
                 <p>{car.make}</p>
-                <p>{car.model}</p>
+                <p className="model">{car.model},</p>
                 <p>{car.year}</p>
-                <p>{car.rentalPrice}</p>
+                <p className="rentalPrice">{car.rentalPrice}</p>
               </StyledModelData>
               <StyledModelDetail>
                 <p>
                   {address[1]} | {address[2]} | {car.rentalCompany} | {car.type}
                   | {car.accessories[0]} | {car.functionalities[0]}
                 </p>
-                {/* <p>{address[1]}</p>
-                <p>{address[2]}</p>
-                <p>{car.rentalCompany}</p>
-                <p>{car.type}</p>
-                <p>{car.accessories[0]}</p>
-                <p>{car.functionalities[0]}</p> */}
               </StyledModelDetail>
-              <button>Learn more</button>
+              <button id={car.id} type="button" onClick={handleOpenModal}>
+                Learn more
+              </button>
+              <StyledHeartWrapper>
+                <StyledHeartIcon />
+              </StyledHeartWrapper>
             </StyledCard>
           </div>
         );

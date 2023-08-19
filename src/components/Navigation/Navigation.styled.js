@@ -27,7 +27,7 @@ export const StyledNavLink = styled(NavLink)`
   }
 `;
 
-export const StyledUser = styled.div`
+export const StyledNavPage = styled.div`
   display: flex;
   gap: 10px;
   justify-content: end;

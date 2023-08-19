@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux';
 
 import {
   StyledNavLink,
+  StyledNavPage,
   StyledNavigation,
-  StyledUser,
 } from './Navigation.styled';
 import { selectCarData } from 'redux/selectors';
 
@@ -17,11 +17,11 @@ const Navigation = () => {
       <StyledNavigation>
         <StyledNavLink to="/">Home</StyledNavLink>
         {carData ? (
-          <StyledUser>
+          <StyledNavPage>
             <StyledNavLink to="/catalog">Catalog</StyledNavLink>
             <StyledNavLink to="/favorites">Favorite</StyledNavLink>
             {/* <UserMenu handleLogout={handleLogout} /> */}
-          </StyledUser>
+          </StyledNavPage>
         ) : (
           <>
             {/* <StyledNavLink to="/login">Login</StyledNavLink>
