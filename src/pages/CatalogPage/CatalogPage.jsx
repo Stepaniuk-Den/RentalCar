@@ -1,24 +1,37 @@
 import Card from 'components/Card/Card';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   LoadButton,
   StyledCatalog,
   StyledContainer,
 } from './CatalogPage.styled';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'components/Modal/Modal';
-import { selectIsOpen } from 'redux/selectors';
+import { selectCarPerPageData, selectIsOpen } from 'redux/selectors';
+import { getCarsPerPageThunk } from 'redux/thunk';
 
+let page = 1;
 const CatalogPage = () => {
+  const dispatch = useDispatch();
   const isOpen = useSelector(selectIsOpen);
+  const carPerPageData = useSelector(selectCarPerPageData);
 
+  useEffect(() => {
+    if (carPerPageData.length > 0) return;
+    dispatch(getCarsPerPageThunk(page));
+  }, [dispatch, carPerPageData]);
+
+  const handleClick = () => {
+    page += 1;
+    dispatch(getCarsPerPageThunk(page));
+  };
   return (
     <>
       <StyledContainer>
         <StyledCatalog>
           <Card />
         </StyledCatalog>
-        <LoadButton>Load more</LoadButton>
+        <LoadButton onClick={handleClick}>Load more</LoadButton>
       </StyledContainer>
       {isOpen ? <Modal /> : null}
     </>

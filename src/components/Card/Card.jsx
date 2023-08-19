@@ -1,20 +1,28 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCarData } from 'redux/selectors';
+import {
+  selectCarData,
+  selectCarPerPageData,
+  selectFavoriteCarData,
+} from 'redux/selectors';
 import { getCarsThunk } from 'redux/thunk';
 import {
   StyledCard,
-  StyledHeartIcon,
+  // StyledHeartFillIcon,
+  // StyledHeartIcon,
   StyledHeartWrapper,
   StyledModelData,
   StyledModelDetail,
   StyledWrapper,
 } from './Card.styled';
 import { addModalData, openModal } from 'redux/modalSlice';
+import { addCarFavorite, delCarFavorite } from 'redux/favoriteSlice';
 
 const Card = () => {
   const dispatch = useDispatch();
   const carData = useSelector(selectCarData);
+  const carPerPageData = useSelector(selectCarPerPageData);
+  const favoriteCarData = useSelector(selectFavoriteCarData);
 
   useEffect(() => {
     dispatch(getCarsThunk());
@@ -32,11 +40,26 @@ const Card = () => {
     const carFavorite = carData.find(
       car => car.id === Number(evt.currentTarget.id)
     );
-    // dispatch(toggleFavorite(carFavorite));
+    const favoriteCar = favoriteCarData.find(
+      car => car.id === Number(evt.currentTarget.id)
+    );
+
+    console.log(carFavorite);
+    console.log(favoriteCar);
+
+    if (favoriteCar) {
+      const filtered = favoriteCarData?.filter(
+        // car => car.id !== favoriteCar.id
+        car => car.id !== evt.currentTarget.id
+      );
+      dispatch(delCarFavorite(filtered));
+    } else {
+      dispatch(addCarFavorite(carFavorite));
+    }
   };
   return (
     <>
-      {carData.map(car => {
+      {carPerPageData.map(car => {
         const address = car.address.split(',');
         return (
           <div key={car.id}>
@@ -59,8 +82,12 @@ const Card = () => {
               <button id={car.id} type="button" onClick={handleOpenModal}>
                 Learn more
               </button>
-              <StyledHeartWrapper>
-                <StyledHeartIcon />
+              <StyledHeartWrapper id={car.id} onClick={toFavorite}>
+                {/* {!favoriteCarData.car.id ? (
+                  <StyledHeartIcon />
+                ) : (
+                  <StyledHeartFillIcon />
+                )} */}
               </StyledHeartWrapper>
             </StyledCard>
           </div>

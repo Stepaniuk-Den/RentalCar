@@ -8,3 +8,13 @@ export const fetchCar = async () => {
   const { data } = await $instance.get('/adverts');
   return data;
 };
+
+export const fetchCarPerPage = async page => {
+  const { data } = await $instance.get('/adverts', {
+    params: {
+      page: page,
+      limit: 8,
+    },
+  });
+  return data;
+};
