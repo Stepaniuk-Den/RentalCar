@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/212.b36dc563.chunk.js","mappings":"uIAQA,UANqB,WACnB,OACEA,EAAAA,EAAAA,KAAA,OAAAC,SAAK,gBAET,C","sources":["pages/FavoritePage/FavoritePage.jsx"],"sourcesContent":["import React from 'react'\n\nconst FavoritePage = () => {\n  return (\n    <div>FavoritePage</div>\n  )\n}\n\nexport default FavoritePage"],"names":["_jsx","children"],"sourceRoot":""}
