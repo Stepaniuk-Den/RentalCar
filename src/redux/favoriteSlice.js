@@ -14,8 +14,12 @@ const favoriteSlice = createSlice({
     delCarFavorite: (state, action) => {
       state.carsFavorite = action.payload;
     },
+    delAllCarFavorite: state => {
+      state.carsFavorite = [];
+    },
   },
 });
 
 export const favoriteReducer = favoriteSlice.reducer;
-export const { addCarFavorite, delCarFavorite } = favoriteSlice.actions;
+export const { addCarFavorite, delCarFavorite, delAllCarFavorite } =
+  favoriteSlice.actions;

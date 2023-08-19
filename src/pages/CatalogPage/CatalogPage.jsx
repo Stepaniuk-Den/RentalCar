@@ -7,13 +7,18 @@ import {
 } from './CatalogPage.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'components/Modal/Modal';
-import { selectCarPerPageData, selectIsOpen } from 'redux/selectors';
+import {
+  selectCarData,
+  selectCarPerPageData,
+  selectIsOpen,
+} from 'redux/selectors';
 import { getCarsPerPageThunk } from 'redux/thunk';
 
 let page = 1;
 const CatalogPage = () => {
   const dispatch = useDispatch();
   const isOpen = useSelector(selectIsOpen);
+  const carData = useSelector(selectCarData);
   const carPerPageData = useSelector(selectCarPerPageData);
 
   useEffect(() => {
@@ -29,9 +34,13 @@ const CatalogPage = () => {
     <>
       <StyledContainer>
         <StyledCatalog>
-          <Card />
+          <Card data={carPerPageData} />
         </StyledCatalog>
-        <LoadButton onClick={handleClick}>Load more</LoadButton>
+        {carPerPageData?.length < carData?.length ? (
+          <LoadButton onClick={handleClick}>Load more</LoadButton>
+        ) : (
+          <></>
+        )}
       </StyledContainer>
       {isOpen ? <Modal /> : null}
     </>

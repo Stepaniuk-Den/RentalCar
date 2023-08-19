@@ -1,15 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectCarData,
-  selectCarPerPageData,
-  selectFavoriteCarData,
-} from 'redux/selectors';
+import { selectCarData, selectFavoriteCarData } from 'redux/selectors';
 import { getCarsThunk } from 'redux/thunk';
 import {
   StyledCard,
-  // StyledHeartFillIcon,
-  // StyledHeartIcon,
+  StyledHeartFillIcon,
+  StyledHeartIcon,
   StyledHeartWrapper,
   StyledModelData,
   StyledModelDetail,
@@ -18,10 +14,9 @@ import {
 import { addModalData, openModal } from 'redux/modalSlice';
 import { addCarFavorite, delCarFavorite } from 'redux/favoriteSlice';
 
-const Card = () => {
+const Card = ({ data }) => {
   const dispatch = useDispatch();
   const carData = useSelector(selectCarData);
-  const carPerPageData = useSelector(selectCarPerPageData);
   const favoriteCarData = useSelector(selectFavoriteCarData);
 
   useEffect(() => {
@@ -44,22 +39,20 @@ const Card = () => {
       car => car.id === Number(evt.currentTarget.id)
     );
 
-    console.log(carFavorite);
-    console.log(favoriteCar);
-
     if (favoriteCar) {
       const filtered = favoriteCarData?.filter(
-        // car => car.id !== favoriteCar.id
-        car => car.id !== evt.currentTarget.id
+        car => car.id !== Number(evt.currentTarget.id)
       );
+
       dispatch(delCarFavorite(filtered));
     } else {
       dispatch(addCarFavorite(carFavorite));
     }
   };
+
   return (
     <>
-      {carPerPageData.map(car => {
+      {data.map(car => {
         const address = car.address.split(',');
         return (
           <div key={car.id}>
@@ -83,11 +76,11 @@ const Card = () => {
                 Learn more
               </button>
               <StyledHeartWrapper id={car.id} onClick={toFavorite}>
-                {/* {!favoriteCarData.car.id ? (
+                {!favoriteCarData.some(i => i.id === car.id) ? (
                   <StyledHeartIcon />
                 ) : (
                   <StyledHeartFillIcon />
-                )} */}
+                )}
               </StyledHeartWrapper>
             </StyledCard>
           </div>
