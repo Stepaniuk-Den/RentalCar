@@ -55,8 +55,8 @@ const Card = ({ data }) => {
       {data.map(car => {
         const address = car.address.split(',');
         return (
-          <div key={car.id}>
-            <StyledCard>
+          <>
+            <StyledCard key={car.id}>
               <StyledWrapper className="image">
                 <img src={car.img} alt={car.make} />
               </StyledWrapper>
@@ -83,7 +83,7 @@ const Card = ({ data }) => {
                 )}
               </StyledHeartWrapper>
             </StyledCard>
-          </div>
+          </>
         );
       })}
     </>
