@@ -13,6 +13,7 @@ import {
   selectIsOpen,
 } from 'redux/selectors';
 import { getCarsPerPageThunk } from 'redux/thunk';
+import SearchForm from 'components/SearchForm/SearchForm';
 
 let page = 1;
 const CatalogPage = () => {
@@ -33,6 +34,7 @@ const CatalogPage = () => {
   return (
     <>
       <StyledContainer>
+        <SearchForm />
         <StyledCatalog>
           <Card data={carPerPageData} />
         </StyledCatalog>
