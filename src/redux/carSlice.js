@@ -7,6 +7,11 @@ const carSlice = createSlice({
     carData: [],
     carPerPage: [],
   },
+  reducers: {
+    searchCars: (state, action) => {
+      state.filter = action.payload;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(getCarsThunk.fulfilled, (state, action) => {
@@ -19,3 +24,4 @@ const carSlice = createSlice({
 });
 
 export const carReducer = carSlice.reducer;
+export const { searchCars } = carSlice.actions;

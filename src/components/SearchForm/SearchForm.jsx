@@ -1,17 +1,41 @@
 import { Field, Formik } from 'formik';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectCarData } from 'redux/selectors';
-import { StyledForm } from './SearchForm.styled';
+
 import { nanoid } from '@reduxjs/toolkit';
+import { searchCars } from 'redux/carSlice';
+import { StyledForm } from './SearchForm.styled';
 
 const SearchForm = () => {
+  const dispatch = useDispatch();
   const carData = useSelector(selectCarData);
-  console.log(carData[0].make);
+  // console.log(carData[0].make);
   const prices = [
     10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170,
     180, 190, 200,
   ];
+  const handlerOnSubmit = values => {
+    function capitalizeString(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    const capitalizedModel = capitalizeString(values.model);
+    const carPrice = `$${values.rentalPrice}`;
+
+    const filteredCars = capitalizedModel
+      ? carData.filter(car => car.make === capitalizedModel)
+      : carData.filter(car => car.rentalPrice === carPrice);
+
+    if (!filteredCars?.length > 0) {
+      // notifyCarSearchError();
+      return;
+    } else {
+      dispatch(searchCars(filteredCars));
+      // notifyCarSearch(filteredCars?.length);
+    }
+    // resetForm()
+  };
   return (
     <Formik
       initialValues={{
@@ -20,32 +44,58 @@ const SearchForm = () => {
         fromMileage: '',
         toMileage: '',
       }}
+      onSubmit={values => {
+        handlerOnSubmit(values);
+      }}
     >
-      <StyledForm>
-        <div>
-          <label htmlFor="brand">
-            Car brand
-            <Field as="select" id="brand" name="brand">
-              <option value="">Enter the text</option>
-              {carData.map(car => (
-                <option key={nanoid()}>{car.make}</option>
-              ))}
-            </Field>
-          </label>
-        </div>
-        <div>
-          <label htmlFor="rentalPrice">
-            Price/ 1 hour
-            <Field as="select" id="rentalPrice" name="rentalPrice">
-              <option value="">Select a price ($)</option>
-              {prices.map(price => (
-                <option key={nanoid()}>{price}</option>
-              ))}
-            </Field>
-          </label>
-        </div>
-        <button type="submit">Search</button>
-      </StyledForm>
+      {formik => (
+        <StyledForm onSubmit={formik.handleSubmit}>
+          <div>
+            <label htmlFor="brand">
+              Car brand
+              <Field as="select" id="brand" name="brand">
+                <option value="">Enter the text</option>
+                {carData.map(car => (
+                  <option key={nanoid()}>{car.make}</option>
+                ))}
+              </Field>
+            </label>
+          </div>
+          <div>
+            <label htmlFor="rentalPrice">
+              Price/ 1 hour
+              <Field as="select" id="rentalPrice" name="rentalPrice">
+                <option value="">Select a price ($)</option>
+                {prices.map(price => (
+                  <option key={nanoid()}>{price}</option>
+                ))}
+              </Field>
+            </label>
+          </div>
+          <div>
+            <label>
+              Car mileage / km
+              <div>
+                <input
+                  onChange={formik.handleChange}
+                  values={formik.values.fromMileage}
+                  type="number"
+                  name="fromMileage"
+                  placeholder="from"
+                />
+                <input
+                  onChange={formik.handleChange}
+                  values={formik.values.toMileage}
+                  type="number"
+                  name="toMileage"
+                  placeholder="to"
+                />
+              </div>
+            </label>
+          </div>
+          <button type="submit">Search</button>
+        </StyledForm>
+      )}
     </Formik>
   );
 };
