@@ -1,26 +1,30 @@
 import { Field, Formik } from 'formik';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCarData } from 'redux/selectors';
+import { selectCarData, selectFilteredCars } from 'redux/selectors';
 
 import { nanoid } from '@reduxjs/toolkit';
 import { searchCars } from 'redux/carSlice';
 import { StyledForm } from './SearchForm.styled';
 
+import PropTypes from 'prop-types';
+
 const SearchForm = () => {
   const dispatch = useDispatch();
   const carData = useSelector(selectCarData);
+  const filteredCars = useSelector(selectFilteredCars);
   // console.log(carData[0].make);
   const prices = [
     10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170,
     180, 190, 200,
   ];
   const handlerOnSubmit = values => {
-    function capitalizeString(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1);
-    }
+    // function capitalizeString(str) {
+    //   return str.charAt(0).toUpperCase() + str.slice(1);
+    // }
 
-    const capitalizedModel = capitalizeString(values.model);
+    // const capitalizedModel = capitalizeString(values.brand);
+    const capitalizedModel = values.brand;
     const carPrice = `$${values.rentalPrice}`;
 
     const filteredCars = capitalizedModel
@@ -46,6 +50,7 @@ const SearchForm = () => {
       }}
       onSubmit={values => {
         handlerOnSubmit(values);
+        console.log(values);
       }}
     >
       {formik => (
@@ -98,6 +103,29 @@ const SearchForm = () => {
       )}
     </Formik>
   );
+};
+
+SearchForm.propTypes = {
+  filteredCarList: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      year: PropTypes.number,
+      make: PropTypes.string,
+      model: PropTypes.string,
+      type: PropTypes.string,
+      img: PropTypes.string,
+      description: PropTypes.string,
+      fuelConsumption: PropTypes.string,
+      engineSize: PropTypes.string,
+      accessories: PropTypes.arrayOf(PropTypes.string),
+      functionalities: PropTypes.arrayOf(PropTypes.string),
+      rentalPrice: PropTypes.string,
+      rentalCompany: PropTypes.string,
+      address: PropTypes.string,
+      rentalConditions: PropTypes.string,
+      mileage: PropTypes.number,
+    })
+  ),
 };
 
 export default SearchForm;

@@ -6,6 +6,7 @@ const carSlice = createSlice({
   initialState: {
     carData: [],
     carPerPage: [],
+    filter: null,
   },
   reducers: {
     searchCars: (state, action) => {
