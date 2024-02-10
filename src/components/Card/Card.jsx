@@ -50,6 +50,7 @@ const Card = ({ data }) => {
     }
   };
 
+  console.log(data);
   return (
     <>
       {data.map(car => {

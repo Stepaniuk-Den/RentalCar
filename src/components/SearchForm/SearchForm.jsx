@@ -5,7 +5,12 @@ import { selectCarData, selectFilteredCars } from 'redux/selectors';
 
 import { nanoid } from '@reduxjs/toolkit';
 import { searchCars } from 'redux/carSlice';
-import { StyledForm } from './SearchForm.styled';
+import {
+  StyledBrandContainer,
+  StyledLabel,
+  StyledField,
+  StyledForm,
+} from './SearchForm.styled';
 
 import PropTypes from 'prop-types';
 
@@ -55,27 +60,27 @@ const SearchForm = () => {
     >
       {formik => (
         <StyledForm onSubmit={formik.handleSubmit}>
-          <div>
-            <label htmlFor="brand">
-              Car brand
-              <Field as="select" id="brand" name="brand">
+          <StyledBrandContainer>
+            <StyledLabel htmlFor="brand">
+              <span>Car brand</span>
+              <StyledField as="select" id="brand" name="brand">
                 <option value="">Enter the text</option>
                 {carData.map(car => (
                   <option key={nanoid()}>{car.make}</option>
                 ))}
-              </Field>
-            </label>
-          </div>
+              </StyledField>
+            </StyledLabel>
+          </StyledBrandContainer>
           <div>
-            <label htmlFor="rentalPrice">
-              Price/ 1 hour
-              <Field as="select" id="rentalPrice" name="rentalPrice">
+            <StyledLabel htmlFor="rentalPrice">
+              <span>Price/ 1 hour</span>
+              <StyledField as="select" id="rentalPrice" name="rentalPrice">
                 <option value="">Select a price ($)</option>
                 {prices.map(price => (
                   <option key={nanoid()}>{price}</option>
                 ))}
-              </Field>
-            </label>
+              </StyledField>
+            </StyledLabel>
           </div>
           <div>
             <label>
