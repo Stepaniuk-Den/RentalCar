@@ -1,4 +1,4 @@
-import { Field, Formik } from 'formik';
+import { Formik } from 'formik';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCarData, selectFilteredCars } from 'redux/selectors';
@@ -10,6 +10,10 @@ import {
   StyledLabel,
   StyledField,
   StyledForm,
+  StyledPriceContainer,
+  StyledBtnSubmit,
+  StyledRangeContainer,
+  StyledRangeLabel,
 } from './SearchForm.styled';
 
 import PropTypes from 'prop-types';
@@ -17,7 +21,7 @@ import PropTypes from 'prop-types';
 const SearchForm = () => {
   const dispatch = useDispatch();
   const carData = useSelector(selectCarData);
-  const filteredCars = useSelector(selectFilteredCars);
+  // const filteredCars = useSelector(selectFilteredCars);
   // console.log(carData[0].make);
   const prices = [
     10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170,
@@ -45,6 +49,7 @@ const SearchForm = () => {
     }
     // resetForm()
   };
+
   return (
     <Formik
       initialValues={{
@@ -71,7 +76,7 @@ const SearchForm = () => {
               </StyledField>
             </StyledLabel>
           </StyledBrandContainer>
-          <div>
+          <StyledPriceContainer>
             <StyledLabel htmlFor="rentalPrice">
               <span>Price/ 1 hour</span>
               <StyledField as="select" id="rentalPrice" name="rentalPrice">
@@ -81,10 +86,10 @@ const SearchForm = () => {
                 ))}
               </StyledField>
             </StyledLabel>
-          </div>
-          <div>
-            <label>
-              Car mileage / km
+          </StyledPriceContainer>
+          <StyledRangeContainer>
+            <StyledRangeLabel>
+              <span>Car mileage / km</span>
               <div>
                 <input
                   onChange={formik.handleChange}
@@ -101,9 +106,9 @@ const SearchForm = () => {
                   placeholder="to"
                 />
               </div>
-            </label>
-          </div>
-          <button type="submit">Search</button>
+            </StyledRangeLabel>
+          </StyledRangeContainer>
+          <StyledBtnSubmit type="submit">Search</StyledBtnSubmit>
         </StyledForm>
       )}
     </Formik>

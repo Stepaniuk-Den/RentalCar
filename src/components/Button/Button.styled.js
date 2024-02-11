@@ -14,7 +14,7 @@ export const StyledButton = styled.button`
   color: #fff;
   transition: all 0.3s ease-in-out;
   font-size: 14px;
-  /* font-weight: 600; */
+
   line-height: 20px; /* 142.857% */
   &:hover {
     background-color: #0b44cd;
