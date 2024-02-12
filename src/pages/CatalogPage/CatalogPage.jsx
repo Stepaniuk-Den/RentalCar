@@ -1,5 +1,6 @@
 import Card from 'components/Card/Card';
 import React, { useEffect } from 'react';
+import { nanoid } from '@reduxjs/toolkit';
 import {
   LoadButton,
   StyledCatalog,
@@ -31,18 +32,22 @@ const CatalogPage = () => {
     page += 1;
     dispatch(getCarsPerPageThunk(page));
   };
+
   return (
     <>
       <StyledContainer>
         <SearchForm />
         <StyledCatalog>
-          <Card data={carPerPageData} />
+          {carPerPageData?.length &&
+            carPerPageData.map(car => <Card data={car} id={car.id} />)}
+          {/* <Card data={carPerPageData} /> */}
         </StyledCatalog>
-        {carPerPageData?.length < carData?.length ? (
-          <LoadButton onClick={handleClick}>Load more</LoadButton>
-        ) : (
-          <></>
-        )}
+        {
+          carPerPageData?.length < carData?.length ? (
+            <LoadButton onClick={handleClick}>Load more</LoadButton>
+          ) : null
+          // <></>
+        }
       </StyledContainer>
       {isOpen ? <Modal /> : null}
     </>

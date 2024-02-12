@@ -15,6 +15,19 @@ import { addModalData, openModal } from 'redux/modalSlice';
 import { addCarFavorite, delCarFavorite } from 'redux/favoriteSlice';
 
 const Card = ({ data }) => {
+  const {
+    img,
+    make,
+    model,
+    year,
+    rentalPrice,
+    address,
+    rentalCompany,
+    type,
+    id,
+    accessories,
+  } = data;
+
   const dispatch = useDispatch();
   const carData = useSelector(selectCarData);
   const favoriteCarData = useSelector(selectFavoriteCarData);
@@ -50,45 +63,45 @@ const Card = ({ data }) => {
     }
   };
 
-  console.log(data);
+  // console.log(data);
+  // return (
+  //   <>
+  //     {data.map(car => {
+  const newAddress = address.split(',');
   return (
     <>
-      {data.map(car => {
-        const address = car.address.split(',');
-        return (
-          <>
-            <StyledCard key={car.id}>
-              <StyledWrapper className="image">
-                <img src={car.img} alt={car.make} />
-              </StyledWrapper>
-              <StyledModelData>
-                <p>{car.make}</p>
-                <p className="model">{car.model},</p>
-                <p>{car.year}</p>
-                <p className="rentalPrice">{car.rentalPrice}</p>
-              </StyledModelData>
-              <StyledModelDetail>
-                <p>
-                  {address[1]} | {address[2]} | {car.rentalCompany} | {car.type}
-                  | {car.accessories[0]} | {car.functionalities[0]}
-                </p>
-              </StyledModelDetail>
-              <button id={car.id} type="button" onClick={handleOpenModal}>
-                Learn more
-              </button>
-              <StyledHeartWrapper id={car.id} onClick={toFavorite}>
-                {!favoriteCarData.some(i => i.id === car.id) ? (
-                  <StyledHeartIcon />
-                ) : (
-                  <StyledHeartFillIcon />
-                )}
-              </StyledHeartWrapper>
-            </StyledCard>
-          </>
-        );
-      })}
+      <StyledCard key={id}>
+        <StyledWrapper className="image">
+          <img src={img} alt={make} />
+        </StyledWrapper>
+        <StyledModelData>
+          <p>{make}</p>
+          <p className="model">{model},</p>
+          <p>{year}</p>
+          <p className="rentalPrice">{rentalPrice}</p>
+        </StyledModelData>
+        <StyledModelDetail>
+          <p>
+            {newAddress[1]} | {newAddress[2]} | {rentalCompany} | {type}|{' '}
+            {accessories[0]} | {data.functionalities[0]}
+          </p>
+        </StyledModelDetail>
+        <button id={id} type="button" onClick={handleOpenModal}>
+          Learn more
+        </button>
+        <StyledHeartWrapper id={id} onClick={toFavorite}>
+          {!favoriteCarData.some(i => i.id === id) ? (
+            <StyledHeartIcon />
+          ) : (
+            <StyledHeartFillIcon />
+          )}
+        </StyledHeartWrapper>
+      </StyledCard>
     </>
   );
+  //     })}
+  //   </>
+  // );
 };
 
 export default Card;

@@ -61,9 +61,15 @@ export const StyledLabel = styled.label`
 export const StyledField = styled(Field)`
   display: flex;
   width: 200px;
-  height: 30px;
+  height: 34px;
+  padding-left: 10px;
   border: 1px solid rgba(18, 20, 23, 0.5);
   border-radius: 20px;
+  font-size: 12px;
+  color: #707070;
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const StyledBtnSubmit = styled.button`
@@ -71,7 +77,8 @@ export const StyledBtnSubmit = styled.button`
   justify-content: center;
   align-items: center;
   width: 100px;
-  height: min-content;
+  height: 34px;
+  /* height: min-content; */
   padding: 5px 10px;
   margin-top: auto;
   border-radius: 12px;
@@ -102,5 +109,72 @@ export const StyledRangeLabel = styled.label`
     height: 44px;
     justify-content: center;
     align-items: center;
+  }
+`;
+
+export const StyledInputLeft = styled.input`
+  width: 100px;
+  height: 30px;
+  padding-right: 10px;
+  text-align: right;
+  border: 1px solid rgba(18, 20, 23, 0.5);
+  border-right: none;
+  border-radius: 20px 0 0 20px;
+  font-size: 12px;
+  color: #707070;
+
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    background: #fff
+      url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAKUlEQVQYlWNgwAT/sYhhKPiPT+F/LJgEsHv37v+EMGkmkuImoh2NoQAANlcun/q4OoYAAAAASUVORK5CYII=)
+      no-repeat center center;
+    width: 2em;
+    border-right: 1px solid #bbb;
+    opacity: 0.5; /* shows Spin Buttons per default (Chrome >= 39) */
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    cursor: pointer;
+  }
+`;
+
+export const StyledInputRight = styled.input`
+  position: relative;
+  width: 100px;
+  height: 30px;
+  padding-left: 10px;
+  border: 1px solid rgba(18, 20, 23, 0.5);
+  border-radius: 0 20px 20px 0;
+  font-size: 12px;
+  color: #707070;
+
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    background: #fff
+      url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAKUlEQVQYlWNgwAT/sYhhKPiPT+F/LJgEsHv37v+EMGkmkuImoh2NoQAANlcun/q4OoYAAAAASUVORK5CYII=)
+      no-repeat center center;
+    width: 2em;
+    border-left: 1px solid #bbb;
+    opacity: 0.5; /* shows Spin Buttons per default (Chrome >= 39) */
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    cursor: pointer;
   }
 `;

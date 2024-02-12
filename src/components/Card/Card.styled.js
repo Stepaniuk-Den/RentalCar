@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 import { GoHeart } from 'react-icons/go';
 import { GoHeartFill } from 'react-icons/go';
 
-export const StyledCard = styled.div`
+export const StyledCard = styled.li`
   display: flex;
   flex-direction: column;
   width: 274px;

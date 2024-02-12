@@ -14,6 +14,8 @@ import {
   StyledBtnSubmit,
   StyledRangeContainer,
   StyledRangeLabel,
+  StyledInputLeft,
+  StyledInputRight,
 } from './SearchForm.styled';
 
 import PropTypes from 'prop-types';
@@ -28,12 +30,13 @@ const SearchForm = () => {
     180, 190, 200,
   ];
   const handlerOnSubmit = values => {
-    // function capitalizeString(str) {
-    //   return str.charAt(0).toUpperCase() + str.slice(1);
-    // }
+    // console.log('handlerOnSubmit', values);
+    function capitalizeString(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
 
-    // const capitalizedModel = capitalizeString(values.brand);
-    const capitalizedModel = values.brand;
+    const capitalizedModel = capitalizeString(values.brand);
+    // const capitalizedModel = values.brand;
     const carPrice = `$${values.rentalPrice}`;
 
     const filteredCars = capitalizedModel
@@ -47,7 +50,7 @@ const SearchForm = () => {
       dispatch(searchCars(filteredCars));
       // notifyCarSearch(filteredCars?.length);
     }
-    // resetForm()
+    // resetForm();
   };
 
   return (
@@ -68,7 +71,13 @@ const SearchForm = () => {
           <StyledBrandContainer>
             <StyledLabel htmlFor="brand">
               <span>Car brand</span>
-              <StyledField as="select" id="brand" name="brand">
+              <StyledField
+                as="select"
+                id="brand"
+                name="brand"
+                onChange={formik.handleChange}
+                value={formik.values.brand}
+              >
                 <option value="">Enter the text</option>
                 {carData.map(car => (
                   <option key={nanoid()}>{car.make}</option>
@@ -79,7 +88,13 @@ const SearchForm = () => {
           <StyledPriceContainer>
             <StyledLabel htmlFor="rentalPrice">
               <span>Price/ 1 hour</span>
-              <StyledField as="select" id="rentalPrice" name="rentalPrice">
+              <StyledField
+                as="select"
+                id="rentalPrice"
+                name="rentalPrice"
+                onChange={formik.handleChange}
+                value={formik.values.rentalPrice}
+              >
                 <option value="">Select a price ($)</option>
                 {prices.map(price => (
                   <option key={nanoid()}>{price}</option>
@@ -91,14 +106,14 @@ const SearchForm = () => {
             <StyledRangeLabel>
               <span>Car mileage / km</span>
               <div>
-                <input
+                <StyledInputLeft
                   onChange={formik.handleChange}
                   values={formik.values.fromMileage}
                   type="number"
                   name="fromMileage"
                   placeholder="from"
                 />
-                <input
+                <StyledInputRight
                   onChange={formik.handleChange}
                   values={formik.values.toMileage}
                   type="number"
