@@ -12,6 +12,9 @@ const carSlice = createSlice({
     searchCars: (state, action) => {
       state.filter = action.payload;
     },
+    searchCarsClear: state => {
+      state.filter = null;
+    },
   },
   extraReducers: builder => {
     builder
@@ -25,4 +28,4 @@ const carSlice = createSlice({
 });
 
 export const carReducer = carSlice.reducer;
-export const { searchCars } = carSlice.actions;
+export const { searchCars, searchCarsClear } = carSlice.actions;

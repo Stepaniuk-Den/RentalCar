@@ -1,7 +1,6 @@
 import { styled } from 'styled-components';
-import { Form, Field } from 'formik';
 
-export const StyledForm = styled(Form)`
+export const StyledForm = styled.form`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -39,37 +38,6 @@ export const StyledLabel = styled.label`
     border: none;
     border-radius: 12px;
   }
-
-  &:hover {
-    & span {
-      display: flex;
-      width: 100%;
-      justify-content: center;
-      align-items: center;
-      border: none;
-      border-radius: 12px;
-      color: #fff;
-      transition: all 0.3s ease-in-out;
-      background-color: #0b44cd;
-      box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.2),
-        0px 1px 5px 0px rgba(0, 0, 0, 0.14),
-        0px 2px 5px -1px rgba(0, 0, 0, 0.12);
-    }
-  }
-`;
-
-export const StyledField = styled(Field)`
-  display: flex;
-  width: 200px;
-  height: 34px;
-  padding-left: 10px;
-  border: 1px solid rgba(18, 20, 23, 0.5);
-  border-radius: 20px;
-  font-size: 12px;
-  color: #707070;
-  &:focus {
-    outline: none;
-  }
 `;
 
 export const StyledBtnSubmit = styled.button`
@@ -78,7 +46,6 @@ export const StyledBtnSubmit = styled.button`
   align-items: center;
   width: 100px;
   height: 34px;
-  /* height: min-content; */
   padding: 5px 10px;
   margin-top: auto;
   border-radius: 12px;
@@ -111,6 +78,241 @@ export const StyledRangeLabel = styled.label`
     align-items: center;
   }
 `;
+
+export const styledSelectBrand = {
+  option: styles => {
+    return {
+      ...styles,
+      background: '#FFF',
+
+      outline: 'none',
+      height: '28px',
+
+      fontSize: '16px',
+      fontWeight: '500',
+      color: 'rgba(18, 20, 23, 0.50)',
+
+      cursor: 'pointer',
+      '&:hover': {
+        color: '#3470ff',
+        fontWeight: '500',
+      },
+      textAlign: 'left',
+    };
+  },
+  control: styles => ({
+    ...styles,
+    outline: '1px solid #000',
+    border: 'none',
+    borderRadius: '12px',
+    boxShadow: 'none',
+    backgroundColor: '#FFF',
+    width: '200px',
+    height: '32px',
+
+    margin: 'auto',
+
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }),
+
+  singleValue: (styles, state) => {
+    const opacity = state.isDisabled ? 0.5 : 1;
+    const transition = 'opacity 300ms';
+
+    return {
+      ...styles,
+      opacity,
+      transition,
+      right: 5,
+      color: '#121417',
+
+      fontSize: '18px',
+
+      fontWeight: '500',
+      lineHeight: '1.11',
+    };
+  },
+
+  menu: styles => {
+    return {
+      ...styles,
+      background: '#FFF',
+      borderRadius: '12px',
+      display: 'inline-block',
+      width: '200px',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+
+      border: '1px solid rgba(18, 20, 23, 0.05)',
+
+      boxShadow: '0px 4px 36px 0px rgba(0, 0, 0, 0.02)',
+    };
+  },
+  menuList: styles => ({
+    ...styles,
+    '::-webkit-scrollbar': {},
+  }),
+
+  placeholder: () => {
+    const transform = 'translateY(-50%)';
+    return {
+      position: 'absolute',
+      left: 10,
+      top: '10px',
+      // top: '50%',
+      transform,
+      color: '#121417',
+
+      fontSize: '16px',
+
+      fontWeight: '500',
+      lineHeight: '1',
+    };
+  },
+
+  indicators: () => {
+    return {
+      cursor: 'pointer',
+    };
+  },
+
+  dropdownIndicator: styles => {
+    return {
+      ...styles,
+      size: '20px',
+      color: '#121417;',
+      '&:hover': {
+        color: 'rgba(18, 20, 23, 1)',
+      },
+    };
+  },
+
+  input: styles => {
+    return {
+      ...styles,
+      margin: '0px',
+      color: '#121417',
+      width: '100%',
+    };
+  },
+};
+
+export const styledSelectPrice = {
+  option: styles => {
+    return {
+      ...styles,
+      background: '#FFF',
+
+      outline: 'none',
+      height: '32px',
+
+      fontSize: '16px',
+      fontWeight: '500',
+      color: 'rgba(18, 20, 23, 0.20)',
+
+      cursor: 'pointer',
+      '&:hover': {
+        color: '#121417',
+        fontWeight: '500',
+      },
+      textAlign: 'left',
+    };
+  },
+  control: styles => ({
+    ...styles,
+    border: 'none',
+    borderRadius: '14px',
+    boxShadow: 'none',
+    backgroundColor: '#F7F7FB',
+    width: '125px',
+    height: '48px',
+
+    margin: 'auto',
+
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }),
+
+  singleValue: (styles, state) => {
+    const opacity = state.isDisabled ? 0.5 : 1;
+    const transition = 'opacity 300ms';
+
+    return {
+      ...styles,
+      opacity,
+      transition,
+      right: 5,
+      color: '#121417',
+
+      fontSize: '18px',
+
+      fontWeight: '500',
+      lineHeight: '1.11',
+    };
+  },
+
+  menu: styles => {
+    return {
+      ...styles,
+      background: '#FFF',
+      borderRadius: '14px',
+      display: 'inline-block',
+      width: '224px',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+
+      border: '1px solid rgba(18, 20, 23, 0.05)',
+
+      boxShadow: '0px 4px 36px 0px rgba(0, 0, 0, 0.02)',
+    };
+  },
+  menuList: styles => ({
+    ...styles,
+    '::-webkit-scrollbar': {},
+  }),
+
+  placeholder: () => {
+    return {
+      position: 'absolute',
+      left: 10,
+      color: '#121417',
+
+      fontSize: '18px',
+
+      fontWeight: '500',
+      lineHeight: '1.11',
+    };
+  },
+
+  indicators: () => {
+    return {
+      cursor: 'pointer',
+    };
+  },
+
+  dropdownIndicator: styles => {
+    return {
+      ...styles,
+      size: '20px',
+      color: '#121417;',
+      '&:hover': {
+        color: 'rgba(18, 20, 23, 1)',
+      },
+    };
+  },
+
+  input: styles => {
+    return {
+      ...styles,
+      margin: '0px',
+      color: '#121417',
+      width: '100%',
+    };
+  },
+};
 
 export const StyledInputLeft = styled.input`
   width: 100px;

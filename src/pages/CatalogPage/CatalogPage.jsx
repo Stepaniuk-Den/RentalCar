@@ -1,6 +1,5 @@
 import Card from 'components/Card/Card';
 import React, { useEffect } from 'react';
-import { nanoid } from '@reduxjs/toolkit';
 import {
   LoadButton,
   StyledCatalog,
@@ -11,6 +10,7 @@ import Modal from 'components/Modal/Modal';
 import {
   selectCarData,
   selectCarPerPageData,
+  selectFilteredCars,
   selectIsOpen,
 } from 'redux/selectors';
 import { getCarsPerPageThunk } from 'redux/thunk';
@@ -22,6 +22,7 @@ const CatalogPage = () => {
   const isOpen = useSelector(selectIsOpen);
   const carData = useSelector(selectCarData);
   const carPerPageData = useSelector(selectCarPerPageData);
+  const filteredCars = useSelector(selectFilteredCars);
 
   useEffect(() => {
     if (carPerPageData.length > 0) return;
@@ -32,22 +33,20 @@ const CatalogPage = () => {
     page += 1;
     dispatch(getCarsPerPageThunk(page));
   };
-
+  console.log(filteredCars);
   return (
     <>
       <StyledContainer>
         <SearchForm />
         <StyledCatalog>
-          {carPerPageData?.length &&
-            carPerPageData.map(car => <Card data={car} id={car.id} />)}
-          {/* <Card data={carPerPageData} /> */}
+          {filteredCars
+            ? filteredCars.map(car => <Card data={car} key={car.id} />)
+            : carPerPageData?.length &&
+              carPerPageData.map(car => <Card data={car} key={car.id} />)}
         </StyledCatalog>
-        {
-          carPerPageData?.length < carData?.length ? (
-            <LoadButton onClick={handleClick}>Load more</LoadButton>
-          ) : null
-          // <></>
-        }
+        {carPerPageData?.length < carData?.length ? (
+          <LoadButton onClick={handleClick}>Load more</LoadButton>
+        ) : null}
       </StyledContainer>
       {isOpen ? <Modal /> : null}
     </>

@@ -1,14 +1,12 @@
-import { Formik } from 'formik';
+import { useFormik } from 'formik';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCarData, selectFilteredCars } from 'redux/selectors';
 
-import { nanoid } from '@reduxjs/toolkit';
-import { searchCars } from 'redux/carSlice';
+import { searchCars, searchCarsClear } from 'redux/carSlice';
 import {
   StyledBrandContainer,
   StyledLabel,
-  StyledField,
   StyledForm,
   StyledPriceContainer,
   StyledBtnSubmit,
@@ -16,141 +14,105 @@ import {
   StyledRangeLabel,
   StyledInputLeft,
   StyledInputRight,
+  styledSelectBrand,
+  styledSelectPrice,
 } from './SearchForm.styled';
 
-import PropTypes from 'prop-types';
+import {
+  handlerSubmitSearch,
+  makerSelectOptions,
+} from 'components/helpers/helpers';
+import Select from 'react-select';
 
 const SearchForm = () => {
   const dispatch = useDispatch();
   const carData = useSelector(selectCarData);
-  // const filteredCars = useSelector(selectFilteredCars);
-  // console.log(carData[0].make);
-  const prices = [
-    10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170,
-    180, 190, 200,
-  ];
-  const handlerOnSubmit = values => {
-    // console.log('handlerOnSubmit', values);
-    function capitalizeString(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1);
-    }
+  const filteredCars = useSelector(selectFilteredCars);
 
-    const capitalizedModel = capitalizeString(values.brand);
-    // const capitalizedModel = values.brand;
-    const carPrice = `$${values.rentalPrice}`;
+  const options = makerSelectOptions(carData);
 
-    const filteredCars = capitalizedModel
-      ? carData.filter(car => car.make === capitalizedModel)
-      : carData.filter(car => car.rentalPrice === carPrice);
-
-    if (!filteredCars?.length > 0) {
-      // notifyCarSearchError();
-      return;
-    } else {
-      dispatch(searchCars(filteredCars));
-      // notifyCarSearch(filteredCars?.length);
-    }
-    // resetForm();
+  const handleClearFilter = () => {
+    dispatch(searchCarsClear());
   };
 
-  return (
-    <Formik
-      initialValues={{
-        brand: '',
-        rentalPrice: '',
-        fromMileage: '',
-        toMileage: '',
-      }}
-      onSubmit={values => {
-        handlerOnSubmit(values);
-        console.log(values);
-      }}
-    >
-      {formik => (
-        <StyledForm onSubmit={formik.handleSubmit}>
-          <StyledBrandContainer>
-            <StyledLabel htmlFor="brand">
-              <span>Car brand</span>
-              <StyledField
-                as="select"
-                id="brand"
-                name="brand"
-                onChange={formik.handleChange}
-                value={formik.values.brand}
-              >
-                <option value="">Enter the text</option>
-                {carData.map(car => (
-                  <option key={nanoid()}>{car.make}</option>
-                ))}
-              </StyledField>
-            </StyledLabel>
-          </StyledBrandContainer>
-          <StyledPriceContainer>
-            <StyledLabel htmlFor="rentalPrice">
-              <span>Price/ 1 hour</span>
-              <StyledField
-                as="select"
-                id="rentalPrice"
-                name="rentalPrice"
-                onChange={formik.handleChange}
-                value={formik.values.rentalPrice}
-              >
-                <option value="">Select a price ($)</option>
-                {prices.map(price => (
-                  <option key={nanoid()}>{price}</option>
-                ))}
-              </StyledField>
-            </StyledLabel>
-          </StyledPriceContainer>
-          <StyledRangeContainer>
-            <StyledRangeLabel>
-              <span>Car mileage / km</span>
-              <div>
-                <StyledInputLeft
-                  onChange={formik.handleChange}
-                  values={formik.values.fromMileage}
-                  type="number"
-                  name="fromMileage"
-                  placeholder="from"
-                />
-                <StyledInputRight
-                  onChange={formik.handleChange}
-                  values={formik.values.toMileage}
-                  type="number"
-                  name="toMileage"
-                  placeholder="to"
-                />
-              </div>
-            </StyledRangeLabel>
-          </StyledRangeContainer>
-          <StyledBtnSubmit type="submit">Search</StyledBtnSubmit>
-        </StyledForm>
-      )}
-    </Formik>
-  );
-};
+  const formik = useFormik({
+    initialValues: {
+      make: '',
+      price: '',
+      fromMileage: '',
+      toMileage: '',
+    },
+    onSubmit: value => {
+      dispatch(searchCars(handlerSubmitSearch(value, carData)));
+    },
+  });
 
-SearchForm.propTypes = {
-  filteredCarList: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      year: PropTypes.number,
-      make: PropTypes.string,
-      model: PropTypes.string,
-      type: PropTypes.string,
-      img: PropTypes.string,
-      description: PropTypes.string,
-      fuelConsumption: PropTypes.string,
-      engineSize: PropTypes.string,
-      accessories: PropTypes.arrayOf(PropTypes.string),
-      functionalities: PropTypes.arrayOf(PropTypes.string),
-      rentalPrice: PropTypes.string,
-      rentalCompany: PropTypes.string,
-      address: PropTypes.string,
-      rentalConditions: PropTypes.string,
-      mileage: PropTypes.number,
-    })
-  ),
+  return (
+    <StyledForm onSubmit={formik.handleSubmit}>
+      <StyledBrandContainer>
+        <StyledLabel>
+          <span>Car brand</span>
+          <Select
+            // classNames="select-brand"
+            type="text"
+            name={formik.values.label}
+            value={formik.values.label}
+            options={options.uniqBrandOptions}
+            styles={styledSelectBrand}
+            placeholder="Enter the text"
+            onChange={({ value }) => formik.setFieldValue('make', value)}
+            onBlur={formik.handleBlur}
+          />
+        </StyledLabel>
+      </StyledBrandContainer>
+      <StyledPriceContainer>
+        <StyledLabel>
+          <span>Price/ 1 hour</span>
+          <Select
+            type="number"
+            name={formik.values.label}
+            value={formik.values.value}
+            options={options.uniqPriceOptions}
+            styles={styledSelectPrice}
+            placeholder="To $ "
+            onChange={({ value }) => formik.setFieldValue('price', value)}
+            onBlur={formik.handleBlur}
+          />
+        </StyledLabel>
+      </StyledPriceContainer>
+      <StyledRangeContainer>
+        <StyledRangeLabel>
+          <span>Car mileage / km</span>
+          <div>
+            <StyledInputLeft
+              onChange={formik.handleChange}
+              values={formik.values.fromMileage}
+              type="number"
+              name="fromMileage"
+              placeholder="from"
+              autoComplete="off"
+              min="1"
+            />
+            <StyledInputRight
+              onChange={formik.handleChange}
+              values={formik.values.toMileage}
+              type="number"
+              name="toMileage"
+              placeholder="to"
+              autoComplete="off"
+              min="1"
+            />
+          </div>
+        </StyledRangeLabel>
+      </StyledRangeContainer>
+      <StyledBtnSubmit type="submit">Search</StyledBtnSubmit>
+      {filteredCars?.length > 0 && (
+        <StyledBtnSubmit type="button" onClick={handleClearFilter}>
+          Clear
+        </StyledBtnSubmit>
+      )}
+    </StyledForm>
+  );
 };
 
 export default SearchForm;

@@ -26,6 +26,7 @@ const Card = ({ data }) => {
     type,
     id,
     accessories,
+    functionalities,
   } = data;
 
   const dispatch = useDispatch();
@@ -63,14 +64,12 @@ const Card = ({ data }) => {
     }
   };
 
-  // console.log(data);
-  // return (
-  //   <>
-  //     {data.map(car => {
   const newAddress = address.split(',');
+
   return (
     <>
-      <StyledCard key={id}>
+      <StyledCard>
+        {/* <StyledCard key={id}> */}
         <StyledWrapper className="image">
           <img src={img} alt={make} />
         </StyledWrapper>
@@ -83,7 +82,7 @@ const Card = ({ data }) => {
         <StyledModelDetail>
           <p>
             {newAddress[1]} | {newAddress[2]} | {rentalCompany} | {type}|{' '}
-            {accessories[0]} | {data.functionalities[0]}
+            {accessories[0]} | {functionalities[0]}
           </p>
         </StyledModelDetail>
         <button id={id} type="button" onClick={handleOpenModal}>
@@ -99,9 +98,6 @@ const Card = ({ data }) => {
       </StyledCard>
     </>
   );
-  //     })}
-  //   </>
-  // );
 };
 
 export default Card;
