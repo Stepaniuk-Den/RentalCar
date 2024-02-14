@@ -1,3 +1,4 @@
+export const selectIsLoading = state => state.root.isLoading;
 export const selectCarData = state => state.cars.carData;
 export const selectFilteredCars = state => state.cars.filter;
 export const selectCarPerPageData = state => state.cars.carPerPage;

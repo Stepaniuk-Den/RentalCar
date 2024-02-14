@@ -6,6 +6,11 @@ export const StyledForm = styled.form`
   align-items: center;
   margin: 20px auto;
   gap: 20px;
+
+  @media only screen and (max-width: 1024px) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 `;
 
 export const StyledBrandContainer = styled.div`
@@ -28,16 +33,6 @@ export const StyledLabel = styled.label`
   justify-content: center;
   align-items: center;
   gap: 10px;
-
-  & span {
-    display: flex;
-    width: 100%;
-    height: 44px;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    border-radius: 12px;
-  }
 `;
 
 export const StyledBtnSubmit = styled.button`
@@ -45,7 +40,7 @@ export const StyledBtnSubmit = styled.button`
   justify-content: center;
   align-items: center;
   width: 100px;
-  height: 34px;
+  height: 38px;
   padding: 5px 10px;
   margin-top: auto;
   border-radius: 12px;
@@ -69,14 +64,6 @@ export const StyledRangeLabel = styled.label`
   justify-content: center;
   align-items: center;
   gap: 10px;
-
-  & span {
-    display: flex;
-    width: 100%;
-    height: 44px;
-    justify-content: center;
-    align-items: center;
-  }
 `;
 
 export const styledSelectBrand = {
@@ -86,7 +73,7 @@ export const styledSelectBrand = {
       background: '#FFF',
 
       outline: 'none',
-      height: '28px',
+      height: '24px',
 
       fontSize: '16px',
       fontWeight: '500',
@@ -100,18 +87,18 @@ export const styledSelectBrand = {
       textAlign: 'left',
     };
   },
+
   control: styles => ({
     ...styles,
-    outline: '1px solid #000',
-    border: 'none',
+    cursor: 'pointer',
+    border: '1px solid rgba(18, 20, 23, 0.2)',
     borderRadius: '12px',
     boxShadow: 'none',
     backgroundColor: '#FFF',
     width: '200px',
-    height: '32px',
-
+    height: '30px',
+    padding: 0,
     margin: 'auto',
-
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -119,19 +106,17 @@ export const styledSelectBrand = {
 
   singleValue: (styles, state) => {
     const opacity = state.isDisabled ? 0.5 : 1;
-    const transition = 'opacity 300ms';
+    const transition = 'opacity 250ms';
 
     return {
       ...styles,
       opacity,
       transition,
-      right: 5,
-      color: '#121417',
-
-      fontSize: '18px',
-
+      color: '#3470ff',
+      paddingLeft: 10,
+      fontSize: '16px',
       fontWeight: '500',
-      lineHeight: '1.11',
+      lineHeight: '1',
     };
   },
 
@@ -144,33 +129,33 @@ export const styledSelectBrand = {
       width: '200px',
       marginLeft: 'auto',
       marginRight: 'auto',
-
-      border: '1px solid rgba(18, 20, 23, 0.05)',
-
-      boxShadow: '0px 4px 36px 0px rgba(0, 0, 0, 0.02)',
+      top: 30,
+      border: 'none',
+      boxShadow: '0px 4px 36px 0px rgba(0, 0, 0, 0.2)',
     };
   },
+
   menuList: styles => ({
     ...styles,
     '::-webkit-scrollbar': {},
   }),
 
   placeholder: () => {
-    const transform = 'translateY(-50%)';
     return {
       position: 'absolute',
       left: 10,
-      top: '10px',
-      // top: '50%',
-      transform,
-      color: '#121417',
-
+      color: '#707070',
       fontSize: '16px',
-
       fontWeight: '500',
       lineHeight: '1',
     };
   },
+
+  valueContainer: styles => ({ ...styles, padding: '0', margin: '0' }),
+  indicatorSeparator: styles => ({
+    ...styles,
+    display: 'none',
+  }),
 
   indicators: () => {
     return {
@@ -178,13 +163,15 @@ export const styledSelectBrand = {
     };
   },
 
-  dropdownIndicator: styles => {
+  dropdownIndicator: (styles, state) => {
     return {
       ...styles,
+      transition: 'transform 250ms cubic-bezier(0.4, 0, 0.2, 1)',
+      transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : null,
       size: '20px',
-      color: '#121417;',
+      color: '#707070',
       '&:hover': {
-        color: 'rgba(18, 20, 23, 1)',
+        color: '#3470ff',
       },
     };
   },
@@ -192,9 +179,10 @@ export const styledSelectBrand = {
   input: styles => {
     return {
       ...styles,
-      margin: '0px',
-      color: '#121417',
+      margin: '0',
+      color: '#707070',
       width: '100%',
+      paddingLeft: 10,
     };
   },
 };
@@ -206,7 +194,7 @@ export const styledSelectPrice = {
       background: '#FFF',
 
       outline: 'none',
-      height: '32px',
+      height: '24px',
 
       fontSize: '16px',
       fontWeight: '500',
@@ -214,7 +202,7 @@ export const styledSelectPrice = {
 
       cursor: 'pointer',
       '&:hover': {
-        color: '#121417',
+        color: '#3470ff',
         fontWeight: '500',
       },
       textAlign: 'left',
@@ -222,15 +210,15 @@ export const styledSelectPrice = {
   },
   control: styles => ({
     ...styles,
-    border: 'none',
-    borderRadius: '14px',
+    cursor: 'pointer',
+    border: '1px solid rgba(18, 20, 23, 0.2)',
+    borderRadius: '12px',
     boxShadow: 'none',
-    backgroundColor: '#F7F7FB',
-    width: '125px',
-    height: '48px',
-
+    backgroundColor: '#FFF',
+    width: '200px',
+    height: '30px',
+    padding: 0,
     margin: 'auto',
-
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -238,19 +226,17 @@ export const styledSelectPrice = {
 
   singleValue: (styles, state) => {
     const opacity = state.isDisabled ? 0.5 : 1;
-    const transition = 'opacity 300ms';
+    const transition = 'opacity 250ms';
 
     return {
       ...styles,
       opacity,
       transition,
-      right: 5,
-      color: '#121417',
-
-      fontSize: '18px',
-
+      color: '#3470ff',
+      paddingLeft: 10,
+      fontSize: '16px',
       fontWeight: '500',
-      lineHeight: '1.11',
+      lineHeight: '1',
     };
   },
 
@@ -258,15 +244,13 @@ export const styledSelectPrice = {
     return {
       ...styles,
       background: '#FFF',
-      borderRadius: '14px',
+      borderRadius: '12px',
       display: 'inline-block',
-      width: '224px',
+      width: '200px',
       marginLeft: 'auto',
       marginRight: 'auto',
-
-      border: '1px solid rgba(18, 20, 23, 0.05)',
-
-      boxShadow: '0px 4px 36px 0px rgba(0, 0, 0, 0.02)',
+      border: 'none',
+      boxShadow: '0px 4px 36px 0px rgba(0, 0, 0, 0.2)',
     };
   },
   menuList: styles => ({
@@ -278,14 +262,18 @@ export const styledSelectPrice = {
     return {
       position: 'absolute',
       left: 10,
-      color: '#121417',
-
-      fontSize: '18px',
-
+      color: '#707070',
+      fontSize: '16px',
       fontWeight: '500',
-      lineHeight: '1.11',
+      lineHeight: '1',
     };
   },
+
+  valueContainer: styles => ({ ...styles, padding: '0', margin: '0' }),
+  indicatorSeparator: styles => ({
+    ...styles,
+    display: 'none',
+  }),
 
   indicators: () => {
     return {
@@ -293,13 +281,15 @@ export const styledSelectPrice = {
     };
   },
 
-  dropdownIndicator: styles => {
+  dropdownIndicator: (styles, state) => {
     return {
       ...styles,
+      transition: 'transform 250ms cubic-bezier(0.4, 0, 0.2, 1)',
+      transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : null,
       size: '20px',
-      color: '#121417;',
+      color: '#707070',
       '&:hover': {
-        color: 'rgba(18, 20, 23, 1)',
+        color: '#3470ff',
       },
     };
   },
@@ -310,19 +300,20 @@ export const styledSelectPrice = {
       margin: '0px',
       color: '#121417',
       width: '100%',
+      paddingLeft: 10,
     };
   },
 };
 
 export const StyledInputLeft = styled.input`
   width: 100px;
-  height: 30px;
+  height: 34px;
   padding-right: 10px;
   text-align: right;
-  border: 1px solid rgba(18, 20, 23, 0.5);
+  border: 1px solid rgba(18, 20, 23, 0.2);
   border-right: none;
-  border-radius: 20px 0 0 20px;
-  font-size: 12px;
+  border-radius: 12px 0 0 12px;
+  font-size: 16px;
   color: #707070;
 
   &::-webkit-inner-spin-button {
@@ -331,7 +322,7 @@ export const StyledInputLeft = styled.input`
       url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAKUlEQVQYlWNgwAT/sYhhKPiPT+F/LJgEsHv37v+EMGkmkuImoh2NoQAANlcun/q4OoYAAAAASUVORK5CYII=)
       no-repeat center center;
     width: 2em;
-    border-right: 1px solid #bbb;
+    /* border-right: 1px solid #bbb; */
     opacity: 0.5; /* shows Spin Buttons per default (Chrome >= 39) */
     position: absolute;
     top: 0;
@@ -351,11 +342,11 @@ export const StyledInputLeft = styled.input`
 export const StyledInputRight = styled.input`
   position: relative;
   width: 100px;
-  height: 30px;
+  height: 34px;
   padding-left: 10px;
-  border: 1px solid rgba(18, 20, 23, 0.5);
-  border-radius: 0 20px 20px 0;
-  font-size: 12px;
+  border: 1px solid rgba(18, 20, 23, 0.2);
+  border-radius: 0 12px 12px 0;
+  font-size: 16px;
   color: #707070;
 
   &::-webkit-inner-spin-button {
@@ -364,7 +355,7 @@ export const StyledInputRight = styled.input`
       url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAKUlEQVQYlWNgwAT/sYhhKPiPT+F/LJgEsHv37v+EMGkmkuImoh2NoQAANlcun/q4OoYAAAAASUVORK5CYII=)
       no-repeat center center;
     width: 2em;
-    border-left: 1px solid #bbb;
+    /* border-left: 1px solid #bbb; */
     opacity: 0.5; /* shows Spin Buttons per default (Chrome >= 39) */
     position: absolute;
     top: 0;

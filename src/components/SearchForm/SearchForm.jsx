@@ -53,7 +53,6 @@ const SearchForm = () => {
         <StyledLabel>
           <span>Car brand</span>
           <Select
-            // classNames="select-brand"
             type="text"
             name={formik.values.label}
             value={formik.values.label}

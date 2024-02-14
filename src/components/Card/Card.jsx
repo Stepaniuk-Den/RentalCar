@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCarData, selectFavoriteCarData } from 'redux/selectors';
-import { getCarsThunk } from 'redux/thunk';
 import {
   StyledCard,
   StyledHeartFillIcon,
@@ -33,10 +32,6 @@ const Card = ({ data }) => {
   const carData = useSelector(selectCarData);
   const favoriteCarData = useSelector(selectFavoriteCarData);
 
-  useEffect(() => {
-    dispatch(getCarsThunk());
-  }, [dispatch]);
-
   const handleOpenModal = evt => {
     const carModal = carData.find(
       car => car.id === Number(evt.currentTarget.id)
@@ -65,11 +60,9 @@ const Card = ({ data }) => {
   };
 
   const newAddress = address.split(',');
-
   return (
     <>
       <StyledCard>
-        {/* <StyledCard key={id}> */}
         <StyledWrapper className="image">
           <img src={img} alt={make} />
         </StyledWrapper>

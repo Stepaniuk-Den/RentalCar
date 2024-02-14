@@ -25,7 +25,9 @@ const FavoritePage = () => {
     <>
       <StyledContainer>
         <StyledCatalog>
-          <Card data={favoriteCarData} />
+          {favoriteCarData?.map(car => (
+            <Card key={car.id} data={car} />
+          ))}
         </StyledCatalog>
         {favoriteCarData.length > 0 ? (
           <LoadButton onClick={deleteAllFavorites}>Delete All</LoadButton>
@@ -35,7 +37,7 @@ const FavoritePage = () => {
           </StyledOops>
         )}
       </StyledContainer>
-      {isOpen ? <Modal /> : null}
+      {isOpen && <Modal />}
     </>
   );
 };

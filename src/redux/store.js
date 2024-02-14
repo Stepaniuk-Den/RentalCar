@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { rootReducer } from './rootSlice';
 import { carReducer } from './carSlice';
 import { modalReducer } from './modalSlice';
 import { favoriteReducer } from './favoriteSlice';
@@ -23,6 +24,7 @@ const favoritePersistConfig = {
 
 export const store = configureStore({
   reducer: {
+    root: rootReducer,
     cars: carReducer,
     modal: modalReducer,
     favorite: persistReducer(favoritePersistConfig, favoriteReducer),
