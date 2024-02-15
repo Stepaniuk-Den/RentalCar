@@ -44,10 +44,18 @@ const CatalogPage = () => {
     dispatch(getCarsPerPageThunk(page));
   };
 
-  const isShowLoadMore = Boolean(
-    carPerPageData?.length && filteredCars?.length
-  );
-  console.log(isShowLoadMore);
+  useEffect(() => {
+    const scrollToBottom = () => {
+      const pages = window.innerHeight;
+      if (page === 1) return;
+      window.scrollTo({
+        top: pages * page,
+        behavior: 'smooth',
+      });
+    };
+    scrollToBottom();
+  }, [carPerPageData.length]);
+
   return (
     <>
       <StyledContainer>

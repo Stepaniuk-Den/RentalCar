@@ -14,13 +14,11 @@ const Navigation = () => {
     <div>
       <StyledNavigation>
         <StyledNavLink to="/">Home</StyledNavLink>
-        {carData ? (
+        {carData && (
           <StyledNavPage>
             <StyledNavLink to="/catalog">Catalog</StyledNavLink>
             <StyledNavLink to="/favorites">Favorite</StyledNavLink>
           </StyledNavPage>
-        ) : (
-          <></>
         )}
       </StyledNavigation>
     </div>

@@ -2,10 +2,15 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const StyledHeader = styled.header`
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
   display: flex;
   padding: 10px 0 10px 48px;
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.2),
     0px 1px 5px 0px rgba(0, 0, 0, 0.14), 0px 2px 5px -1px rgba(0, 0, 0, 0.12);
+  background-color: #fff;
   & nav {
     display: flex;
     gap: 10px;
@@ -35,5 +40,5 @@ export const StyledNavLink = styled(NavLink)`
 
 export const StyledMain = styled.main`
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 60px auto 0;
 `;
