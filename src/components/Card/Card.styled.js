@@ -24,7 +24,6 @@ export const StyledCard = styled.li`
     color: #fff;
     transition: all 0.3s ease-in-out;
     font-size: 14px;
-    /* font-weight: 600; */
     line-height: 20px; /* 142.857% */
     &:hover {
       background-color: #0b44cd;
@@ -94,14 +93,15 @@ export const StyledHeartWrapper = styled.div`
   top: 14px;
   right: 14px;
   cursor: pointer;
-  &:hover {
-  }
 `;
 
 export const StyledHeartIcon = styled(GoHeart)`
   width: 18px;
   height: 18px;
   color: rgba(255, 255, 255, 0.8);
+  &:hover {
+    fill: rgba(52, 112, 255, 1);
+  }
 `;
 export const StyledHeartFillIcon = styled(GoHeartFill)`
   width: 18px;

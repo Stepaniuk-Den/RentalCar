@@ -63,8 +63,8 @@ const Card = ({ data }) => {
   return (
     <>
       <StyledCard>
-        <StyledWrapper className="image">
-          <img src={img} alt={make} />
+        <StyledWrapper className="image" id={id} onClick={toFavorite}>
+          <img src={img} alt={make} loading="lazy" />
         </StyledWrapper>
         <StyledModelData>
           <p>{make}</p>
