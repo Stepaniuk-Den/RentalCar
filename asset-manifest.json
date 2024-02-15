@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/RentalCar/static/css/main.33e3ba20.css",
-    "main.js": "/RentalCar/static/js/main.375bd0c6.js",
+    "main.js": "/RentalCar/static/js/main.07f84e9f.js",
     "static/js/226.6b2839db.chunk.js": "/RentalCar/static/js/226.6b2839db.chunk.js",
     "static/js/5.66e696dc.chunk.js": "/RentalCar/static/js/5.66e696dc.chunk.js",
     "static/js/934.c666c85c.chunk.js": "/RentalCar/static/js/934.c666c85c.chunk.js",
@@ -12,7 +12,7 @@
     "static/media/oops.png": "/RentalCar/static/media/oops.af49ecb945787229f472.png",
     "index.html": "/RentalCar/index.html",
     "main.33e3ba20.css.map": "/RentalCar/static/css/main.33e3ba20.css.map",
-    "main.375bd0c6.js.map": "/RentalCar/static/js/main.375bd0c6.js.map",
+    "main.07f84e9f.js.map": "/RentalCar/static/js/main.07f84e9f.js.map",
     "226.6b2839db.chunk.js.map": "/RentalCar/static/js/226.6b2839db.chunk.js.map",
     "5.66e696dc.chunk.js.map": "/RentalCar/static/js/5.66e696dc.chunk.js.map",
     "934.c666c85c.chunk.js.map": "/RentalCar/static/js/934.c666c85c.chunk.js.map",
@@ -22,6 +22,6 @@
   },
   "entrypoints": [
     "static/css/main.33e3ba20.css",
-    "static/js/main.375bd0c6.js"
+    "static/js/main.07f84e9f.js"
   ]
 }
