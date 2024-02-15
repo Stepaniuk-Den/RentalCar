@@ -14,10 +14,10 @@ export const App = () => {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="/catalog" element={<Catalog />} />
-            <Route path="/favorites" element={<Favorite />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="catalog" element={<Catalog />} />
+            <Route path="favorites" element={<Favorite />} />
           </Route>
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
     </div>
